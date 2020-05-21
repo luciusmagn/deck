@@ -39,13 +39,13 @@ window.addEventListener('load', evt => {
 
   // Handle key events
   window.addEventListener('keydown', evt => {
-    if (evt.key === 'ArrowLeft') {
+    if (evt.key === 'ArrowLeft' || evt.key === "Previous" || evt.key === "PageUp") {
       if (index === 0) {
         return;
       }
       index--;
       update();
-    } else if (evt.key === 'ArrowRight') {
+    } else if (evt.key === 'ArrowRight' || evt.key === "Next" || evt.key === "PageDown") {
       if (index == slides.length - 1) {
         return;
       }
