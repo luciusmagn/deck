@@ -1,0 +1,88 @@
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body{background:black;color:white;width:100%;font-family:sans-serif;font-size:200%;}@media screen{body{height:100%;overflow:hidden;}}pre{font-family:monospace;text-align:initial;padding:1em;}h1,h2,h3,h4,h5,h6{text-align:center;}a{color:lightblue}blockquote{text}@media screen{.slide{position:absolute;width:100%;height:100%;max-width:100%;max-height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;transition:transform 0.5s ease 0s;}.previous{display:flex;overflow:hidden;transform:translate3d(-100%,0,0);}.current{display:flex;}.next{display:flex;overflow:hidden;transform:translate3d(100%,0,0);}.slide .content{width:90%;height:100%;padding:1em;overflow-wrap:break-word;display:flex;flex-direction:column;align-items:center;justify-content:center;}}@media print{body{font-size:150%;}.slide{width:100%;height:100%;page-break-after:always;display:flex;flex-direction:column;align-items:center;justify-content:center;}.slide .content{width:90%;height:100%;padding:1em;overflow-wrap:break-word;display:flex;flex-direction:column;align-items:center;justify-content:center;}}
+</style>
+<script type="text/javascript">
+window.addEventListener('load',evt=>{const query=new URLSearchParams(window.location.search);const isWatching=query.get('watch')=='true';let storedIndex=null;if(isWatching){try{storedIndex=sessionStorage.getItem('index')}catch(err){console.error('Failed to retrieve slide index from sessionStorage',err)}}let index=storedIndex===null?0 : parseInt(storedIndex);const slides=document.getElementsByClassName('slide');function update(){for(let i=0;i<slides.length;i++){const slide=slides.item(i);slide.classList.remove('previous');slide.classList.remove('current');slide.classList.remove('next');if(i===index-1){slide.classList.add('previous')}else if(i===index){slide.classList.add('current')}else if(i===index+1){slide.classList.add('next')}}if(isWatching){try{sessionStorage.setItem('index',index)}catch(err){console.error('Failed to save slide index in sessionStorage',err)}}}update();window.addEventListener('keydown',evt=>{if(evt.key==='ArrowLeft'){if(index===0){return}index--;update()}else if(evt.key==='ArrowRight'){if(index==slides.length-1){return}index++;update()}},false);if(isWatching){const uri='ws://'+window.location.host+'/ws';const ws=new WebSocket(uri);ws.onopen=()=>{console.log('[WS] Connected')};ws.onmessage=msg=>{console.log('[WS] Message',msg);const event=JSON.parse(msg.data);if(event.type==='reload'){window.location.reload()}}}},false)
+</script>
+<body>
+<div class="slide">
+<div class="content">
+<h1>Deck, a minimalist presentation tool</h1>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h1>Built with Rust</h1>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1920px-Rust_programming_language_black_logo.svg.png" width="100" />
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h1>Thanks to</h1>
+<ul>
+<li><a href="https://github.com/raphlinus/pulldown-cmark">pulldown_cmark</a> (markdown to html)</li>
+<li><a href="https://github.com/trishume/syntect">syntect</a> (syntax highlighting)</li>
+<li><a href="https://github.com/seanmonstar/warp">warp</a> (local server)</li>
+<li><a href="https://github.com/inotify-rs/inotify">inotify</a> (automatic reload)</li>
+</ul>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h1>Syntax highlighting</h1>
+<pre style="background-color:#2b303b;">
+<span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
+  </span><span style="color:#65737e;">// Read input from stdin
+  </span><span style="color:#b48ead;">let mut</span><span style="color:#c0c5ce;"> input = String::new();
+  io::stdin().</span><span style="color:#96b5b4;">read_to_string</span><span style="color:#c0c5ce;">(&amp;</span><span style="color:#b48ead;">mut</span><span style="color:#c0c5ce;"> input).</span><span style="color:#96b5b4;">unwrap</span><span style="color:#c0c5ce;">();
+
+  </span><span style="color:#65737e;">// Load syntax and theme
+  </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> syntax_set = SyntaxSet::load_defaults_newlines();
+  </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> theme_set = ThemeSet::load_defaults();
+  </span><span style="color:#b48ead;">let</span><span style="color:#c0c5ce;"> theme = &amp;theme_set.themes[&quot;</span><span style="color:#a3be8c;">base16-ocean.dark</span><span style="color:#c0c5ce;">&quot;];
+}
+</span></pre></div>
+</div>
+<div class="slide">
+<div class="content">
+<h1>List</h1>
+<ol>
+<li>First</li>
+<li>Second</li>
+<li>Third</li>
+</ol>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h1>Bullet points</h1>
+<ul>
+<li>First</li>
+<li>Second</li>
+<li>Third</li>
+</ul>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h1>Tables</h1>
+<table><thead><tr><th>Col1</th><th>Col2</th><th>Col3</th></tr></thead><tbody>
+<tr><td>Row11</td><td>Row12</td><td>Row13</td></tr>
+<tr><td>Row21</td><td>Row22</td><td>Row23</td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h1>Quote</h1>
+<blockquote>
+<p>Be the change that you wish to see in the world.</p>
+</blockquote>
+</div>
+</div>
+</body>
+</head>
+</html>
