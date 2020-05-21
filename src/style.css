@@ -27,6 +27,11 @@ a {
   color: lightblue
 }
 
+code {
+  color: sandybrown;
+  font-size: 1.2em;
+}
+
 blockquote {
   text
 }

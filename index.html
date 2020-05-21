@@ -1,0 +1,146 @@
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body{background:black;color:white;width:100%;font-family:sans-serif;font-size:200%;}@media screen{body{height:100%;overflow:hidden;}}pre{font-family:monospace;text-align:initial;padding:1em;}h1,h2,h3,h4,h5,h6{text-align:center;}a{color:lightblue}code{color:sandybrown;font-size:1.2em;}blockquote{text}@media screen{.slide{position:absolute;width:100%;height:100%;max-width:100%;max-height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;transition:transform 0.5s ease 0s;}.previous{display:flex;overflow:hidden;transform:translate3d(-100%,0,0);}.current{display:flex;}.next{display:flex;overflow:hidden;transform:translate3d(100%,0,0);}.slide .content{width:90%;height:100%;padding:1em;overflow-wrap:break-word;display:flex;flex-direction:column;align-items:center;justify-content:center;}}@media print{body{font-size:150%;}.slide{width:100%;height:100%;page-break-after:always;display:flex;flex-direction:column;align-items:center;justify-content:center;}.slide .content{width:90%;height:100%;padding:1em;overflow-wrap:break-word;display:flex;flex-direction:column;align-items:center;justify-content:center;}}
+</style>
+<script type="text/javascript">
+window.addEventListener('load',evt=>{const query=new URLSearchParams(window.location.search);const isWatching=query.get('watch')=='true';let storedIndex=null;if(isWatching){try{storedIndex=sessionStorage.getItem('index')}catch(err){console.error('Failed to retrieve slide index from sessionStorage',err)}}let index=storedIndex===null?0 : parseInt(storedIndex);const slides=document.getElementsByClassName('slide');function update(){for(let i=0;i<slides.length;i++){const slide=slides.item(i);slide.classList.remove('previous');slide.classList.remove('current');slide.classList.remove('next');if(i===index-1){slide.classList.add('previous')}else if(i===index){slide.classList.add('current')}else if(i===index+1){slide.classList.add('next')}}if(isWatching){try{sessionStorage.setItem('index',index)}catch(err){console.error('Failed to save slide index in sessionStorage',err)}}}update();window.addEventListener('keydown',evt=>{if(evt.key==='ArrowLeft'){if(index===0){return}index--;update()}else if(evt.key==='ArrowRight'){if(index==slides.length-1){return}index++;update()}},false);if(isWatching){const uri='ws://'+window.location.host+'/ws';const ws=new WebSocket(uri);ws.onopen=()=>{console.log('[WS] Connected')};ws.onmessage=msg=>{console.log('[WS] Message',msg);const event=JSON.parse(msg.data);if(event.type==='reload'){window.location.reload()}}}},false)
+</script>
+<body>
+<div class="slide">
+<div class="content">
+<h1>gjk.cat</h1>
+</div>
+</div>
+<div class="slide">
+<div class="content"><img src="/cat.png">
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<ul>
+<li>systém na správu studijních materiálů</li>
+<li>založený na statickém generátoru <code>mdbook</code> a napsaný v Rustu</li>
+<li>vytváří hierarchi učitelů, předmětů, materiálů a tagů pomocí <code>gitu</code> a metadat v jazyce TOML</li>
+</ul>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<ul>
+<li><a href="https://gjk.cat/">gjk.cat</a></li>
+<li><a href="https://it.gjk.cat/">it.gjk.cat</a></li>
+<li><a href="https://it.gjk.cat/subjects/unix/subject.html">příklad předmětu</a></li>
+<li><a href="https://it.gjk.cat/subjects/python/datove_typy.html">příklad materiálu</a>
+<ul>
+<li><a href="https://paste.merkoba.com/1590099286-suzase-2">zdroj</a> </li>
+</ul>
+</li>
+<li><a href="https://it.gjk.cat/teachers.html#dawidkubis">karta učitele</a></li>
+<li><a href="https://it.gjk.cat/tags.html">přehled tagů</a></li>
+</ul>
+</div>
+</div>
+<div class="slide">
+<div class="content"></div>
+</div>
+<div class="slide">
+<div class="content">
+<h3>Karta učitele</h3>
+<pre style="background-color:#2b303b;">
+jmeno = &quot;Lukáš Hozda&quot;
+email = &quot;luk.hozda@gmail.com&quot;
+username = &quot;magnusi&quot;
+
+bio = &quot;&quot;&quot;
+### Mauris posuere libero dui
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sed lacinia hendrerit placerat.[1]
+
+### Sed in tellus tincidunt, molestie libero vel,
+semper mi. Praesent lacus felis, `aliquam` in tempor vel,
+fringilla eget dui. Quisque *tristique* pulvinar fringilla.
+
+[1]: &lt;https://www.lipsum.com/feed/html&gt;
+&quot;&quot;&quot;
+</pre></div>
+</div>
+<div class="slide">
+<div class="content">
+<h3>Hlavička předmětu</h3>
+<pre style="background-color:#2b303b;">
+nazev = &quot;Programovací jazyk Python&quot;
+zodpovedna_osoba = &quot;Dawid J. Kubis&quot;
+bio = &quot;V tomto předmětu se učí Python&quot;
+
++++
+</pre></div>
+</div>
+<div class="slide">
+<div class="content">
+<h3>Hlavička materiálu</h3>
+<pre style="background-color:#2b303b;">
+nazev = &quot;Datové typy&quot;
+tagy = [&quot;python&quot;, &quot;typy&quot;]
++++
+</pre></div>
+</div>
+<div class="slide">
+<div class="content">
+<h2>Výhody</h2>
+<ul>
+<li>rychlé, úsporné řešení
+<ul>
+<li>funkcionalita zdarma</li>
+</ul>
+</li>
+<li>git, Markdown</li>
+<li>flexibilní (integrace s <code>mdbook</code> ekosystémem)</li>
+<li>výstupem je statický web</li>
+</ul>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h2>Nevýhody</h2>
+<ul>
+<li>některé části <code>mdbook</code> ekosystému jsou ještě v rané fázi vývoje</li>
+<li>git, Markdown</li>
+<li>vyžaduje základní technickou znalost</li>
+</ul>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h1>Otázky k obhajobě</h1>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h3>1. Jakým způsobem je aplikace připravena na rozšiřování o další vstupní a výstupní formáty? Je aplikace modulární a umožňuje snadnou změnu šablon?</h3>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h3>2. Není náročné přispívat do obsahu pro uživatele, kteří neumí pracovat se systémem Git, či neznají Markdown?</h3>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h3>3. Jak funguje v zadání a dokumentaci popisovaný playground pro Rust? V semestrální práci se nám nepodařilo najít žádnou ukázku.</h3>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h3>4. Ve některých předmětech je často potřeba, aby bylo v zápiscích možné používat matematické formule? Jak byste aplikaci upravil, aby s matematickým zápisem dokázala pracovat?</h3>
+</div>
+</div>
+<div class="slide">
+<div class="content">
+<h3>5. Nepřemýšlel autor nad příspěvkem do, dle jeho slov špatně funkčních, rendererů?</h3>
+</div>
+</div>
+</body>
+</head>
+</html>
