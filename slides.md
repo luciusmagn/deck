@@ -57,7 +57,12 @@ bio = "V tomto předmětu se učí Python"
 ```
 
 ---
+---
 
+### Generování PDF/EPUB
+
+- `mdbook` cílí na generování PDF pomocí tisku
+- `mdbook-epub`, `mdbook-latex`
 ### Hlavička materiálu
 
 ```toml
@@ -109,19 +114,31 @@ tagy = ["python", "typy"]
 
 ### 3. Jak funguje v zadání a dokumentaci popisovaný playground pro Rust? V semestrální práci se nám nepodařilo najít žádnou ukázku.
 
-- prostřednictvím modulu `links`
+- prostřednictvím preprocessoru `links`
+- HTML renderer umožňuje ukázky playgroundu i editovat:
+
+```toml
+# book.toml
+[output.html.playpen]
+editable = true
+```
 
 ---
 
 ### 4. Ve některých předmětech je často potřeba, aby bylo v zápiscích možné používat matematické formule? Jak byste aplikaci upravil, aby s matematickým zápisem dokázala pracovat?
 
-- mdbook má podporu pro MathJax zabudovanou
+- `mdbook` má zabudovanou podporu pro MathJax
+
+```toml
+# book.toml
+mathjax-support = true
+```
 
 ---
 
 ### 5. Nepřemýšlel autor nad příspěvkem do, dle jeho slov špatně funkčních, rendererů?
 
-- gopher
+- Gopher
 - komplexita
 - semi-RFC proces
 
